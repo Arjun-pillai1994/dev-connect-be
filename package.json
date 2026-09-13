@@ -1,0 +1,19 @@
+{
+  "name": "dev-connect-be",
+  "version": "1.0.0",
+  "description": "Connect with devs",
+  "main": "index.js",
+  "scripts": {
+   "start": "node src/app.js",
+   "dev": "nodemon src/app.js"
+  },
+  "keywords": [
+    "nodejs",
+    "javascript"
+  ],
+  "author": "Arjun R Pillai",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
