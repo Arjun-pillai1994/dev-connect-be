@@ -1,24 +1,32 @@
 const express = require('express');
+const connectDB = require('./config/database');
+const cookieParser = require('cookie-parser');
 
-const {adminAuth} = require('./middleware/auth');
+
+
 
 const app = express();
 
 
-app.use('/admin', adminAuth);
+app.use(express.json());
+app.use(cookieParser());
 
 
-app.get('/admin/getAllUsers', (req, res) => {
-  // Logic to retrieve all users from the database
-  const users = [
-    { id: 1, name: 'John Doe' },
-    { id: 2, name: 'Jane Smith' },
-    // Add more user objects as needed
-  ];
+const authRouter = require('./routes/auth');
+const requestsRouter = require('./routes/requests');
+const profileRouter = require('./routes/profile');
 
-  res.json(users);
-});
+app.use('/auth', authRouter);
+app.use('/requests', requestsRouter);
+app.use('/profile', profileRouter);
 
-app.listen(3000, () => {
+connectDB().then(() => {
+  console.log('Connected to MongoDB');
+  app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
+}).catch((err) => {
+  console.error('Error connecting to MongoDB:', err);
+});
+
+
